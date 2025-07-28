@@ -1,168 +1,78 @@
+# AI Trading LLM API MVP
 
----
+This is a minimal API that integrates a Large Language Model (LLM) with a trading account, allowing users to:
+- Select their preferred LLM (OpenAI, Gemini, Copilot, Deepseek AI, Claude)
+- Get AI-powered trade predictions
+- Enable auto-execution of trades
+- Instantly stop all trading activity
+- Set stop-loss and take-profit markers
+- Manage trading-related tasks (ToDo)
 
-````markdown
-# AI‑TRADING‑API ‑
+## Features
+- Modular LLM selection (stubbed, easy to extend)
+- Trade prediction endpoint
+- Auto-execution toggle
+- Instant stop endpoint
+- User-defined stop/sell markers
+- ToDo management
 
-A full-stack AI‑assisted trading signals and alerts dashboard, built using Lovable.dev. The UI, backend, and data flows were generated through natural language prompting.  
+## Requirements
+- Python 3.8+
+- See `requirements.txt`
 
----
-
-## 🚀 Overview
-
-This project provides:
-- AI‑driven trading signal generation (e.g. buy/sell alerts)
-- Historical data visualization and trend analysis
-- User authentication and customizable watchlists
-
-Built with Lovable.dev, combining React + Tailwind frontend, a Supabase backend (optional), and AI integrations like OpenAI or Groq APIs.
-
----
-
-## 🧩 Features
-
-- **AI trading signal generator:** prompt‑based logic to analyze market data  
-- **Real-time dashboards:** charts and performance analytics  
-- **User accounts:** login/logout, managed via Supabase  
-- **Watchlist functionality:** track favorite assets  
-- **Notification alerts:** set thresholds or events triggered by AI models  
-
----
-
-## ⚙️ Prerequisites
-
-- Node.js v20+  
-- npm or yarn  
-- Optional: Supabase project & credentials  
-- AI API key (OpenAI, Groq, etc.)
-
----
-
-## 🛠️ Installation & Setup
-
+## Setup
 ```bash
-git clone https://github.com/AbiramReddySatti/AI-TRADING-API-Loveable.dev-
-cd AI-TRADING-API-Loveable.dev-
-npm install
-````
+pip install -r requirements.txt
+```
 
-If backend is included:
-
+## Running the API
 ```bash
-# Setup Supabase CLI or dashboard
-supabase login
-supabase init
+uvicorn main:app --reload
 ```
 
-Configure environment:
+## API Endpoints
+- `POST /set_llm` — Set the LLM provider
+- `POST /predict_trade` — Get a trade prediction
+- `POST /auto_execute` — Enable/disable auto-trading
+- `POST /instant_stop` — Instantly stop all trading
+- `POST /set_marker` — Set stop-loss/take-profit
+- `GET /todo` — List tasks
+- `POST /todo` — Add a task
+- `PUT /todo/{todo_id}` — Update a task
+- `DELETE /todo/{todo_id}` — Delete a task
 
+## Example Usage
+### Set LLM
 ```bash
-cp .env.template .env
-# Add your API keys, Supabase project URL, etc.
+curl -X POST "http://localhost:8000/set_llm" -H "Content-Type: application/json" -d '{"provider": "openai"}'
 ```
 
----
-
-## 🚧 Usage & Development
-
-### Frontend
-
+### Predict Trade
 ```bash
-cd frontend
-npm run dev
+curl -X POST "http://localhost:8000/predict_trade" -H "Content-Type: application/json" -d '{"symbol": "AAPL"}'
 ```
 
-Then open `http://localhost:3000` in your browser.
-
-### Backend (Supabase Edge Functions or Lovable backend)
-
+### Enable Auto-Execution
 ```bash
-# If codegen via CLI or Makefile exists:
-make generate
-# otherwise, use Lovable dashboard interface
+curl -X POST "http://localhost:8000/auto_execute" -H "Content-Type: application/json" -d '{"enable": true}'
 ```
 
----
-
-## 🧠 AI Integration
-
-AI code and trading logic are defined via prompts in `baml_src/` directory.
-Modify prompts in `baml_src/build.baml`, then regenerate UI via:
-
+### Instant Stop
 ```bash
-make generate
+curl -X POST "http://localhost:8000/instant_stop"
 ```
 
-If using Supabase for function calls:
-
-* Set up edge function in dashboard
-* Use function calling JSON schemas—for example:
-
-```json
-{
-  "name": "generate_signal",
-  "parameters": {
-    "symbol": "string",
-    "price": "number",
-    "time": "string"
-  }
-}
+### Set Marker
+```bash
+curl -X POST "http://localhost:8000/set_marker" -H "Content-Type: application/json" -d '{"symbol": "AAPL", "marker_type": "stop_loss", "value": 150.0}'
 ```
 
-Lovable's built-in support ensures secure prompting and token management ([Lovable Documentation][1], [Lovable][2], [YouTube][3], [GitHub][4]).
-
----
-
-## 🧭 Project Structure
-
-```
-├── baml_src/
-│   └── build.baml
-├── frontend/
-│   └── (React + Vite UI code)
-├── src/
-│   └── backend / agent / edge functions
-├── Makefile
-├── .env.template
-└── README.md
+### ToDo Management
+```bash
+curl -X POST "http://localhost:8000/todo" -H "Content-Type: application/json" -d '{"id": 1, "task": "Review AAPL trade", "done": false}'
+curl http://localhost:8000/todo
 ```
 
 ---
 
-## ⚡ Deployment
-
-* Export to GitHub via Lovable dashboard or link repository manually 🌐
-* Optional: deploy frontend to Vercel/Netlify and backend via Supabase deployments
-* For Edge Functions, push via Supabase CLI or Lovable’s generated code
-
----
-
-## 🛡️ Security & Best Practices
-
-* Do **not expose API keys** in prompts or code—store them securely in environment variables or Supabase secrets ([Lovable Documentation][1])
-* Regularly review prompt history and version control to ensure no sensitive tokens are leaked from chat logs
-
----
-
-## 🙌 Troubleshooting & Tips
-
-* Use Lovable's chat interface to tweak UI or logic gradually
-* Re-run `make generate` when updating prompts
-* Roll back changes via version history if needed in the Lovable dashboard
-
----
-
-## 📚 Resources
-
-* Lovable.dev documentation: environment setup, GitHub/Supabase integration, prompt engineering ([GitHub][4], [Refine][5])
-* AI‑powered trading signals guide by Lovable: outlines how to build this exact use case ([Lovable][2])
-
----
-
-## 📄 License & Credits
-
-* **License:** (add your preferred open source license here, e.g. MIT)
-* **Author:** Abiram Reddy Satti
-* **Built with:** Lovable.dev
-
----
+**Note:** This MVP uses in-memory storage and stubbed integrations. For production, add authentication, persistent storage, and real LLM/trading API integrations. 
