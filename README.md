@@ -1,73 +1,168 @@
-# Welcome to your Lovable project
 
-## Project info
+---
 
-**URL**: https://lovable.dev/projects/34d97589-5bfd-46dc-82a7-8f0146985252
+````markdown
+# AI‑TRADING‑API ‑
 
-## How can I edit this code?
+A full-stack AI‑assisted trading signals and alerts dashboard, built using Lovable.dev. The UI, backend, and data flows were generated through natural language prompting.  
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## 🚀 Overview
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/34d97589-5bfd-46dc-82a7-8f0146985252) and start prompting.
+This project provides:
+- AI‑driven trading signal generation (e.g. buy/sell alerts)
+- Historical data visualization and trend analysis
+- User authentication and customizable watchlists
 
-Changes made via Lovable will be committed automatically to this repo.
+Built with Lovable.dev, combining React + Tailwind frontend, a Supabase backend (optional), and AI integrations like OpenAI or Groq APIs.
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🧩 Features
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- **AI trading signal generator:** prompt‑based logic to analyze market data  
+- **Real-time dashboards:** charts and performance analytics  
+- **User accounts:** login/logout, managed via Supabase  
+- **Watchlist functionality:** track favorite assets  
+- **Notification alerts:** set thresholds or events triggered by AI models  
 
-Follow these steps:
+---
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+## ⚙️ Prerequisites
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+- Node.js v20+  
+- npm or yarn  
+- Optional: Supabase project & credentials  
+- AI API key (OpenAI, Groq, etc.)
 
-# Step 3: Install the necessary dependencies.
-npm i
+---
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+## 🛠️ Installation & Setup
+
+```bash
+git clone https://github.com/AbiramReddySatti/AI-TRADING-API-Loveable.dev-
+cd AI-TRADING-API-Loveable.dev-
+npm install
+````
+
+If backend is included:
+
+```bash
+# Setup Supabase CLI or dashboard
+supabase login
+supabase init
+```
+
+Configure environment:
+
+```bash
+cp .env.template .env
+# Add your API keys, Supabase project URL, etc.
+```
+
+---
+
+## 🚧 Usage & Development
+
+### Frontend
+
+```bash
+cd frontend
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Then open `http://localhost:3000` in your browser.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+### Backend (Supabase Edge Functions or Lovable backend)
 
-**Use GitHub Codespaces**
+```bash
+# If codegen via CLI or Makefile exists:
+make generate
+# otherwise, use Lovable dashboard interface
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+---
 
-## What technologies are used for this project?
+## 🧠 AI Integration
 
-This project is built with:
+AI code and trading logic are defined via prompts in `baml_src/` directory.
+Modify prompts in `baml_src/build.baml`, then regenerate UI via:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+```bash
+make generate
+```
 
-## How can I deploy this project?
+If using Supabase for function calls:
 
-Simply open [Lovable](https://lovable.dev/projects/34d97589-5bfd-46dc-82a7-8f0146985252) and click on Share -> Publish.
+* Set up edge function in dashboard
+* Use function calling JSON schemas—for example:
 
-## Can I connect a custom domain to my Lovable project?
+```json
+{
+  "name": "generate_signal",
+  "parameters": {
+    "symbol": "string",
+    "price": "number",
+    "time": "string"
+  }
+}
+```
 
-Yes, you can!
+Lovable's built-in support ensures secure prompting and token management ([Lovable Documentation][1], [Lovable][2], [YouTube][3], [GitHub][4]).
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+---
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 🧭 Project Structure
+
+```
+├── baml_src/
+│   └── build.baml
+├── frontend/
+│   └── (React + Vite UI code)
+├── src/
+│   └── backend / agent / edge functions
+├── Makefile
+├── .env.template
+└── README.md
+```
+
+---
+
+## ⚡ Deployment
+
+* Export to GitHub via Lovable dashboard or link repository manually 🌐
+* Optional: deploy frontend to Vercel/Netlify and backend via Supabase deployments
+* For Edge Functions, push via Supabase CLI or Lovable’s generated code
+
+---
+
+## 🛡️ Security & Best Practices
+
+* Do **not expose API keys** in prompts or code—store them securely in environment variables or Supabase secrets ([Lovable Documentation][1])
+* Regularly review prompt history and version control to ensure no sensitive tokens are leaked from chat logs
+
+---
+
+## 🙌 Troubleshooting & Tips
+
+* Use Lovable's chat interface to tweak UI or logic gradually
+* Re-run `make generate` when updating prompts
+* Roll back changes via version history if needed in the Lovable dashboard
+
+---
+
+## 📚 Resources
+
+* Lovable.dev documentation: environment setup, GitHub/Supabase integration, prompt engineering ([GitHub][4], [Refine][5])
+* AI‑powered trading signals guide by Lovable: outlines how to build this exact use case ([Lovable][2])
+
+---
+
+## 📄 License & Credits
+
+* **License:** (add your preferred open source license here, e.g. MIT)
+* **Author:** Abiram Reddy Satti
+* **Built with:** Lovable.dev
+
+---
